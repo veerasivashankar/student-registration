@@ -7,6 +7,10 @@ export async function connectToDatabase(): Promise<void> {
     throw new Error("MONGODB_URI is missing from the .env file.");
   }
 
+  if (mongoose.connection.readyState === 1) {
+    return;
+  }
+
   await mongoose.connect(mongoDbUri);
   console.log("Connected to MongoDB.");
 }
